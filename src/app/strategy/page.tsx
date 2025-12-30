@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -133,7 +133,7 @@ interface StrategyData {
   [key: string]: string;
 }
 
-export default function StrategyWizard() {
+function StrategyWizardContent() {
   const searchParams = useSearchParams();
   const stepParam = searchParams.get('step');
 
@@ -540,5 +540,18 @@ export default function StrategyWizard() {
         </div>
       </div>
     </main>
+  );
+}
+
+// Wrap in Suspense boundary for useSearchParams (required for Next.js static generation)
+export default function StrategyWizard() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-zinc-900 flex items-center justify-center">
+        <div className="text-zinc-400">Loading strategy wizard...</div>
+      </div>
+    }>
+      <StrategyWizardContent />
+    </Suspense>
   );
 }
