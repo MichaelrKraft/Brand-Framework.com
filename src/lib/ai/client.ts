@@ -17,7 +17,7 @@ export async function chat(
 ): Promise<string> {
   try {
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-5',
       max_tokens: 4096,
       system: systemPrompt,
       messages: messages.map((m) => ({
@@ -45,7 +45,7 @@ export async function chatStream(
   systemPrompt: string
 ) {
   const stream = await anthropic.messages.stream({
-    model: 'claude-sonnet-4-20250514',
+    model: 'claude-sonnet-5',
     max_tokens: 4096,
     system: systemPrompt,
     messages: messages.map((m) => ({
@@ -63,7 +63,7 @@ export async function generateDocument(
 ): Promise<string> {
   try {
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-5',
       max_tokens: 8192,
       system: systemPrompt,
       messages: [{ role: 'user', content: prompt }],
